@@ -471,10 +471,10 @@ class CRM_Core_Form extends HTML_QuickForm_Page {
       $js = CRM_Utils_Array::value('js', $button);
       $isDefault = CRM_Utils_Array::value('isDefault', $button, FALSE);
       if ($isDefault) {
-        $attrs = array('class' => 'form-submit default');
+        $attrs = array('class' => 'btn btn-success form-submit default');
       }
       else {
-        $attrs = array('class' => 'form-submit');
+        $attrs = array('class' => 'btn btn-info form-submit');
       }
 
       if ($js) {
@@ -482,7 +482,7 @@ class CRM_Core_Form extends HTML_QuickForm_Page {
       }
 
       if ($button['type'] === 'cancel') {
-        $attrs['class'] .= ' cancel';
+        $attrs['class'] .= 'crm-form-submit form-submit btn btn-danger cancel';
       }
 
       if ($button['type'] === 'reset') {
