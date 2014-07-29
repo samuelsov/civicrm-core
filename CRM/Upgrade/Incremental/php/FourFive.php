@@ -233,3 +233,8 @@ DROP KEY `{$dao->CONSTRAINT_NAME}`";
     $queue->createItem($task, array('weight' => -1));
   }
 }
+
+if ($config->enable_bootstrap_css === 1 && strpos($config->userFramework, 'Drupal') === 1) {
+      CRM_Core_BAO_Setting::updateSettingsFromMetaData();
+      CRM_Core_BAO_Setting::setItem('1', CRM_Core_BAO_Setting::SYSTEM_PREFERENCES_NAME, 'enable_bootstrap_css');
+    }
