@@ -99,7 +99,7 @@
 
   {capture assign='reqMark'}<span class="marker" title="{ts}This field is required.{/ts}">*</span>{/capture}
   <div class="crm-contribution-page-id-{$contributionPageID} crm-block crm-contribution-main-form-block">
-  <div id="intro_text" class="crm-section intro_text-section">
+  <div id="intro_text" class="form-group crm-section intro_text-section">
     {$intro_text}
   </div>
   {include file="CRM/common/cidzero.tpl"}
@@ -123,9 +123,9 @@
       <div class="clear"></div>
     </div>
       {else}
-    <div class="crm-section {$form.is_pledge.name}-section">
-      <div class="label">&nbsp;</div>
-      <div class="content">
+    <div class="crm-section {$form.is_pledge.name}-section form-group ">
+      <div class="form-group col-sm-2 label">&nbsp;</div>
+      <div class="form-group col-sm-6 content">
         {$form.is_pledge.html}&nbsp;
         {if $is_pledge_interval}
           {$form.pledge_frequency_interval.html}&nbsp;
@@ -301,7 +301,7 @@
   {if $isCaptcha}
     {include file='CRM/common/ReCAPTCHA.tpl'}
   {/if}
-  <div id="crm-submit-buttons" class="crm-submit-buttons">
+  <div id="crm-submit-buttons" class=" form-group col-sm-offset-10 crm-submit-buttons">
   {include file="CRM/common/formButtons.tpl" location="bottom"}
   </div>
   {if $footer_text}
