@@ -221,7 +221,7 @@
       {include file="CRM/Profile/Page/MultipleRecordFieldsListing.tpl" showListing=true}
         {assign var=floatStyle value='float:right'}
       {/if}
-      <div class="crm-submit-buttons" style='{$floatStyle}'>
+      <div class="col-sm-offset-9 crm-submit-buttons" style='{$floatStyle}'>
       {include file="CRM/common/formButtons.tpl"}{if $isDuplicate}<span class="crm-button">{$form._qf_Edit_upload_duplicate.html}</span>{/if}
       </div>
     {/if}
