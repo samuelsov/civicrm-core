@@ -693,6 +693,21 @@ When enabled, statistics about your CiviCRM installation are reported anonymousl
     'description' => 'Prevent the stylesheet "civicrm.css" from being loaded.',
     'help_text' => NULL,
   ),
+    'enable_bootstrap_css' => array(
+    'group_name' => 'CiviCRM Preferences',
+    'group' => 'core',
+    'name' => 'enable_bootstrap_css',
+    'type' => 'Boolean',
+    'quick_form_type' => 'YesNo',
+    'default' => '0',
+    'add' => '4.5',
+    'title' => 'Use Bootstrap CSS',
+    'is_domain' => 1,
+    'is_contact' => 0,
+    'description' => 'Enables Bootsrap CSS files',
+    'help_text' => 'This is a work in progress. It might break default CSS. Check documentation at wiki.civicrm.org/confluence/display/BootstrapUI for more details',
+  ),
+
   'empoweredBy' => array(
     'group_name' => 'CiviCRM Preferences',
     'group' => 'core',
