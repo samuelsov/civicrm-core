@@ -33,7 +33,8 @@
 
 {if $form.credit_card_number or $form.bank_account_number}
     <div id="payment_information">
-        <fieldset class="billing_mode-group {if $paymentProcessor.payment_type & 2}direct_debit_info-group{else}credit_card_info-group{/if}">
+        <fieldset class="panel panel-info billing_mode-group {if $paymentProcessor.payment_type & 2}direct_debit_info-group{else}credit_card_info-group{/if}">
+           <div class="panel-heading">
             <legend>
                {if $paymentProcessor.payment_type & 2}
                     {ts}Direct Debit Information{/ts}
@@ -41,6 +42,7 @@
                    {ts}Credit Card Information{/ts}
                {/if}
             </legend>
+            </div>
             {if $paymentProcessor.billing_mode & 2 and !$hidePayPalExpress }
             <div class="crm-section no-label paypal_button_info-section">
               <div class="content description">
@@ -56,16 +58,17 @@
             {/if}
 
             {if $paymentProcessor.billing_mode & 1}
+               <div clas="panel-body">
                 <div class="crm-section billing_mode-section {if $paymentProcessor.payment_type & 2}direct_debit_info-section{else}credit_card_info-section{/if}">
                     {if $paymentProcessor.payment_type & 2}
-                        <div class="crm-section {$form.account_holder.name}-section">
-                            <div class="label">{$form.account_holder.label}</div>
-                            <div class="content">{$form.account_holder.html}</div>
+                        <div class="crm-section {$form.account_holder.name}-section form-group">
+                            <div class="form-group label col-sm-2 ">{$form.account_holder.label}</div>
+                            <div class="form-group content col-sm-6 col-sm-offset-4 col-sm-pull-2">{$form.account_holder.html}</div>
                             <div class="clear"></div>
                         </div>
-                        <div class="crm-section {$form.bank_account_number.name}-section">
-                            <div class="label">{$form.bank_account_number.label}</div>
-                            <div class="content">{$form.bank_account_number.html}</div>
+                        <div class="crm-section {$form.bank_account_number.name}-section form-group">
+                            <div class="form-group label col-sm-2">{$form.bank_account_number.label}</div>
+                            <div class="form-group content col-sm-6 col-sm-offset-4 col-sm-pull-2">{$form.bank_account_number.html}</div>
                             <div class="clear"></div>
                         </div>
                         <div class="crm-section {$form.bank_identification_number.name}-section">
@@ -87,22 +90,22 @@
                              </div>
                              <div class="clear"></div>
                         </div>
-                        <div class="crm-section {$form.credit_card_number.name}-section">
-                             <div class="label">{$form.credit_card_number.label} {$reqMark}</div>
-                             <div class="content">{$form.credit_card_number.html|crmAddClass:creditcard}</div>
+                        <div class="crm-section {$form.credit_card_number.name}-section form-group">
+                             <div class="form-group label col-sm-2">{$form.credit_card_number.label} {$reqMark}</div>
+                             <div class="fom-group content col-sm-6 col-sm-offset-4 col-sm-pull-2">{$form.credit_card_number.html|crmAddClass:creditcard}</div>
                              <div class="clear"></div>
                         </div>
-                        <div class="crm-section {$form.cvv2.name}-section">
-                            <div class="label">{$form.cvv2.label} {$reqMark}</div>
-                            <div class="content">
+                        <div class="crm-section {$form.cvv2.name}-section form-group">
+                            <div class="form-group label col-sm-2">{$form.cvv2.label} {$reqMark}</div>
+                            <div class="form-group content col-sm-2 col-sm-offset-2">
                                 {$form.cvv2.html}
                                 <span class="cvv2-icon" title="{ts}Usually the last 3-4 digits in the signature area on the back of the card.{/ts}"> </span>
                             </div>
                             <div class="clear"></div>
                         </div>
                         <div class="crm-section {$form.credit_card_exp_date.name}-section">
-                            <div class="label">{$form.credit_card_exp_date.label} {$reqMark}</div>
-                            <div class="content">{$form.credit_card_exp_date.html}</div>
+                            <div class="label col-sm-2 ">{$form.credit_card_exp_date.label} {$reqMark}</div>
+                            <div class="content col-sm-4 ">{$form.credit_card_exp_date.html}</div>
                             <div class="clear"></div>
                         </div>
                     {/if}
@@ -110,54 +113,58 @@
                 </fieldset>
 
                 {if $profileAddressFields}
+                <div class="col-sm-12">
                   <input type="checkbox" id="billingcheckbox" value="0"> <label for="billingcheckbox">{ts}My billing address is the same as above{/ts}</label>
+                  </div>
                 {/if}
-                <fieldset class="billing_name_address-group">
+                <fieldset class="panel panel-info billing_name_address-group">
+                 <div class="panel-heading">
                   <legend>{ts}Billing Name and Address{/ts}</legend>
-                    <div class="crm-section billing_name_address-section">
-                        <div class="crm-section {$form.billing_first_name.name}-section">
-                            <div class="label">{$form.billing_first_name.label} {$reqMark}</div>
-                            <div class="content">{$form.billing_first_name.html}</div>
+                  </div>
+                    <div class="panel-body crm-section billing_name_address-section">
+                        <div class="crm-section {$form.billing_first_name.name}-section form-group">
+                            <div class="form-group label col-sm-2">{$form.billing_first_name.label} {$reqMark}</div>
+                            <div class="form-group content col-sm-6 col-sm-offset-4 col-sm-pull-2">{$form.billing_first_name.html}</div>
                             <div class="clear"></div>
                         </div>
-                        <div class="crm-section {$form.billing_middle_name.name}-section">
-                            <div class="label">{$form.billing_middle_name.label}</div>
-                            <div class="content">{$form.billing_middle_name.html}</div>
+                        <div class="crm-section {$form.billing_middle_name.name}-section form-group">
+                            <div class="form-group label col-sm-2">{$form.billing_middle_name.label}</div>
+                            <div class="form-group content col-sm-6 col-sm-offset-4 col-sm-pull-2">{$form.billing_middle_name.html}</div>
                             <div class="clear"></div>
                         </div>
-                        <div class="crm-section {$form.billing_last_name.name}-section">
-                            <div class="label">{$form.billing_last_name.label} {$reqMark}</div>
-                            <div class="content">{$form.billing_last_name.html}</div>
+                        <div class="crm-section {$form.billing_last_name.name}-section form-group">
+                            <div class="form-group label col-sm-2">{$form.billing_last_name.label} {$reqMark}</div>
+                            <div class="form-group content col-sm-6 col-sm-offset-4 col-sm-pull-2">{$form.billing_last_name.html}</div>
                             <div class="clear"></div>
                         </div>
                         {assign var=n value=billing_street_address-$bltID}
-                        <div class="crm-section {$form.$n.name}-section">
-                            <div class="label">{$form.$n.label} {$reqMark}</div>
-                            <div class="content">{$form.$n.html}</div>
+                        <div class="crm-section {$form.$n.name}-section form-group">
+                            <div class="form-group label col-sm-2">{$form.$n.label} {$reqMark}</div>
+                            <div class="form-group content col-sm-6 col-sm-offset-4 col-sm-pull-2">{$form.$n.html}</div>
                             <div class="clear"></div>
                         </div>
                         {assign var=n value=billing_city-$bltID}
-                        <div class="crm-section {$form.$n.name}-section">
-                            <div class="label">{$form.$n.label} {$reqMark}</div>
-                            <div class="content">{$form.$n.html}</div>
+                        <div class="crm-section {$form.$n.name}-section form-group">
+                            <div class="form-group label col-sm-2">{$form.$n.label} {$reqMark}</div>
+                            <div class="form-group content col-sm-6 col-sm-offset-4 col-sm-pull-2">{$form.$n.html}</div>
                             <div class="clear"></div>
                         </div>
                         {assign var=n value=billing_country_id-$bltID}
-                        <div class="crm-section {$form.$n.name}-section">
-                            <div class="label">{$form.$n.label} {$reqMark}</div>
-                            <div class="content">{$form.$n.html|crmAddClass:big}</div>
+                        <div class="crm-section {$form.$n.name}-section form-group">
+                            <div class="form-group label col-sm-2 ">{$form.$n.label} {$reqMark}</div>
+                            <div class="form-group content col-sm-6 col-sm-offset-4 col-sm-pull-2">{$form.$n.html|crmAddClass:big}</div>
                             <div class="clear"></div>
                         </div>
                         {assign var=n value=billing_state_province_id-$bltID}
-                        <div class="crm-section {$form.$n.name}-section">
-                            <div class="label">{$form.$n.label} {$reqMark}</div>
-                            <div class="content">{$form.$n.html|crmAddClass:big}</div>
+                        <div class="crm-section {$form.$n.name}-section form-group">
+                            <div class="form-group label col-sm-2">{$form.$n.label} {$reqMark}</div>
+                            <div class="form-group content col-sm-6 col-sm-offset-4 col-sm-pull-2">{$form.$n.html|crmAddClass:big}</div>
                             <div class="clear"></div>
                         </div>
                         {assign var=n value=billing_postal_code-$bltID}
-                        <div class="crm-section {$form.$n.name}-section">
-                            <div class="label">{$form.$n.label} {$reqMark}</div>
-                            <div class="content">{$form.$n.html}</div>
+                        <div class="crm-section {$form.$n.name}-section form-group">
+                            <div class="form-group label col-sm-2">{$form.$n.label} {$reqMark}</div>
+                            <div class="form-group content col-sm-6 col-sm-offset-4 col-sm-pull-2">{$form.$n.html}</div>
                             <div class="clear"></div>
                         </div>
                     </div>
