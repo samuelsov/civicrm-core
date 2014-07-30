@@ -177,8 +177,8 @@
   {/if}
   {assign var=n value=email-$bltID}
   <div class="crm-section {$form.$n.name}-section">
-    <div class="label">{$form.$n.label}</div>
-    <div class="content">
+    <div class="col-sm-3 label">{$form.$n.label}</div>
+    <div class="form-group content col-sm-6 col-sm-offset-3 col-sm-pull-2">
       {$form.$n.html}
     </div>
     <div class="clear"></div>
@@ -277,7 +277,7 @@
   </fieldset>
   {/if}
 
-  <div id="billing-payment-block">
+  <div id="billing-payment-block" class="col-sm-12">
     {* If we have a payment processor, load it - otherwise it happens via ajax *}
     {if $ppType}
       {include file="CRM/Contribute/Form/Contribution/Main.tpl" snippet=4}
@@ -301,11 +301,11 @@
   {if $isCaptcha}
     {include file='CRM/common/ReCAPTCHA.tpl'}
   {/if}
-  <div id="crm-submit-buttons" class=" form-group col-sm-offset-10 crm-submit-buttons">
+  <div id="crm-submit-buttons" class="col-sm-4 form-group col-sm-offset-10 crm-submit-buttons">
   {include file="CRM/common/formButtons.tpl" location="bottom"}
   </div>
   {if $footer_text}
-  <div id="footer_text" class="crm-section contribution_footer_text-section">
+  <div id="footer_text" class="col-sm-2 crm-section contribution_footer_text-section">
     <p>{$footer_text}</p>
   </div>
   {/if}
