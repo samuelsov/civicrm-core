@@ -41,7 +41,7 @@
               {assign var="element_name" value="price_"|cat:$field_id}
           <div class="row">
           <div class="form-group label col-sm-2">{$form.$element_name.label}</div>
-                <div class="content {$element.name}-content col-sm-6 col-sm-0ffset-4 col-sm-pull-2">
+                <div class="content {$element.name}-content col-sm-6 col-sm-offset-4 col-sm-pull-2">
                 {assign var="rowCount" value="1"}
                 {assign var="count" value="1"}
                 {foreach name=outer key=key item=item from=$form.$element_name}
