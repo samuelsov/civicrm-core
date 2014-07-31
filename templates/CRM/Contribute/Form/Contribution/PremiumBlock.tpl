@@ -24,13 +24,14 @@
  +--------------------------------------------------------------------+
 *}
 {if $products}
-  <div id="premiums" class="premiums-group">
+  <div id="premiums" class="col-sm-12 premiums-group">
     {if $context EQ "makeContribution"}
-      <fieldset class="crm-group premiums_select-group">
+      <fieldset class="panel panel-info crm-group premiums_select-group">
       {if $premiumBlock.premiums_intro_title}
-        <legend>{$premiumBlock.premiums_intro_title}</legend>
+        <div class="panel-heading"><legend>{$premiumBlock.premiums_intro_title}</legend></div>
       {/if}
       {if $premiumBlock.premiums_intro_text}
+      <div class="panel-body">
         <div id="premiums-intro" class="crm-section premiums_intro-section">
           {$premiumBlock.premiums_intro_text}
         </div>
@@ -56,11 +57,13 @@
       <div id="premiums-listings">
       {if $showPremium AND !$preview AND $premiumBlock.premiums_nothankyou_position EQ 1}
         <div class="premium premium-no_thanks" id="premium_id-no_thanks" min_contribution="0">
-          <div class="premium-short">
-            <input type="checkbox" disabled="disabled" /> {$premiumBlock.premiums_nothankyou_label}
+          <div class="col-sm-offset-4 premium-short">
+            <h3><span class="label label-info"><input type="checkbox" disabled="disabled" /> {$premiumBlock.premiums_nothankyou_label}
+          </span>
+          </h3>
           </div>
-          <div class="premium-full">
-            <input type="checkbox" checked="checked" disabled="disabled" /> {$premiumBlock.premiums_nothankyou_label}
+          <div class="col-sm-offset-4 premium-full">
+            <h3><input type="checkbox" checked="checked" disabled="disabled" /> {$premiumBlock.premiums_nothankyou_label}</h3>
           </div>
         </div>
       {/if}
@@ -68,25 +71,25 @@
         <div class="premium {if $showPremium}premium-selectable{/if}" id="premium_id-{$row.id}" min_contribution="{$row.min_contribution}">
           <div class="premium-short">
             {if $row.thumbnail}<div class="premium-short-thumbnail"><img src="{$row.thumbnail}" alt="{$row.name}" /></div>{/if}
-            <div class="premium-short-content">{$row.name}</div>
+            <div class="col-sm-offset-4 premium-short-content"><h3><span class="label label-info">{$row.name}</span></h3></div>
             <div style="clear:both"></div>
           </div>
 
           <div class="premium-full">
             <div class="premium-full-image">{if $row.image}<img src="{$row.image}" alt="{$row.name}" />{/if}</div>
             <div class="premium-full-content">
-              <div class="premium-full-title">{$row.name}</div>
+              <div class="col-sm-offset-4 form-group premium-full-title"><h3>{$row.name}</h3></div>
               <div class="premium-full-disabled">
-                {ts 1=$row.min_contribution|crmMoney}You must contribute at least %1 to get this item{/ts}<br/>
-                <input type="button" value="{ts 1=$row.min_contribution|crmMoney}Contribute %1 Instead{/ts}" amount="{$row.min_contribution}" />
+                {ts 1=$row.min_contribution|crmMoney}You must contribute at least %1 to get this item{/ts}
+                <input class=" col-sm-offset-4 btn btn-success" type="button" value="{ts 1=$row.min_contribution|crmMoney}Contribute %1 Instead{/ts}" amount="{$row.min_contribution}" />
               </div>
-              <div class="premium-full-description">
+              <div class="form-group premium-full-description">
                 {$row.description}
               </div>
               {if $showSelectOptions }
                 {assign var="pid" value="options_"|cat:$row.id}
                 {if $pid}
-                  <div class="premium-full-options">
+                  <div class="col-sm-2 premium-full-options">
                     <p>{$form.$pid.html}</p>
                   </div>
                 {/if}
@@ -118,6 +121,7 @@
     {/strip}
 
     {if $context EQ "makeContribution"}
+      </div>
       </fieldset>
     {elseif ! $preview} {* Close premium-display-group div for Confirm and Thank-you pages *}
       </div>
