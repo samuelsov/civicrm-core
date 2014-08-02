@@ -139,9 +139,9 @@
             <div class="clear"></div>
           </div>{* end of main edit section div*}
           {else}
-          <div id="editrow-{$n}" class="crm-section editrow_{$n}-section form-item">
+          <div id="editrow-{$n}" class="crm-section editrow_{$n}-section form-item form-group">
             <div class="form-group col-sm-3 control-label label">
-              {$form.$n.label}
+              <div class="col-sm-2">{$form.$n.label}</div>
             </div>
             <div class="form-group col-sm-6 col-sm-offset-3 col-sm-pull-3 edit-value content">
               {if $n|substr:0:3 eq 'im-'}
