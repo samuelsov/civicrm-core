@@ -91,23 +91,23 @@
                              <div class="clear"></div>
                         </div>
                         <br \>
-                        <div class="crm-section {$form.credit_card_number.name}-section">
-                             <div class="label col-sm-3">{$form.credit_card_number.label} {$reqMark}</div>
-                             <div class="content col-sm-6 col-sm-offset-4">{$form.credit_card_number.html|crmAddClass:creditcard}
+                        <div class="crm-section {$form.credit_card_number.name}-section form-group">
+                             <div class="form-group label col-sm-3">{$form.credit_card_number.label} {$reqMark}</div>
+                             <div class="form-group content col-sm-6 col-sm-offset-3 col-sm-pull-2">{$form.credit_card_number.html|crmAddClass:creditcard}
                              </div>
                              <div class="clear"></div>
                         </div>
-                        <div class="crm-section {$form.cvv2.name}-section">
-                            <div class="label col-sm-3">{$form.cvv2.label} {$reqMark}</div>
-                            <div class="content col-sm-2 col-sm-offset-8 col-sm-pull-4">
+                        <div class="crm-section {$form.cvv2.name}-section form-group">
+                            <div class="form-group label col-sm-3">{$form.cvv2.label} {$reqMark}</div>
+                            <div class="form-group content col-sm-4 col-sm-offset-3 col-sm-pull-2">
                                 {$form.cvv2.html}
                                 <span class="cvv2-icon" title="{ts}Usually the last 3-4 digits in the signature area on the back of the card.{/ts}"> </span>
                             </div>
                             <div class="clear"></div>
                         </div>
-                        <div class="crm-section {$form.credit_card_exp_date.name}-section">
-                            <div class="label col-sm-3">{$form.credit_card_exp_date.label} {$reqMark}</div>
-                            <div class="content col-sm-6 col-sm-offset-4">{$form.credit_card_exp_date.html}</div>
+                        <div class="crm-section {$form.credit_card_exp_date.name}-section form-group">
+                            <div class="form-group label col-sm-4 col-sm-pull-1">{$form.credit_card_exp_date.label} {$reqMark}</div>
+                            <div class="form-group content col-sm-2 col-sm-offset-2 col-sm-pull-2">{$form.credit_card_exp_date.html}</div>
                             <div class="clear"></div>
                         </div>
                     {/if}
