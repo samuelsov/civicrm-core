@@ -97,17 +97,18 @@
                              </div>
                              <div class="clear"></div>
                         </div>
-                        <div class="crm-section {$form.cvv2.name}-section form-group">
+                        <div class="col-sm-12 crm-section {$form.cvv2.name}-section form-group">
                             <div class="form-group label col-sm-3">{$form.cvv2.label} {$reqMark}</div>
-                            <div class="form-group content col-sm-4 col-sm-offset-3 col-sm-pull-2">
+                            <div class="form-group content col-sm-2 col-sm-offset-3 col-sm-pull-2">
                                 {$form.cvv2.html}
-                                <span class="cvv2-icon" title="{ts}Usually the last 3-4 digits in the signature area on the back of the card.{/ts}"> </span>
                             </div>
+                                <span class="col-sm-offset-6 cvv2-icon" title="{ts}Usually the last 3-4 digits in the signature area on the back of the card.{/ts}"> </span>
+
                             <div class="clear"></div>
                         </div>
                         <div class="crm-section {$form.credit_card_exp_date.name}-section form-group">
                             <div class="form-group label col-sm-4 col-sm-pull-1">{$form.credit_card_exp_date.label} {$reqMark}</div>
-                            <div class="form-group content col-sm-2 col-sm-offset-2 col-sm-pull-2">{$form.credit_card_exp_date.html}</div>
+                            <div class="form-group content col-sm-6 col-sm-offset-2 col-sm-pull-2">{$form.credit_card_exp_date.html}</div>
                             <div class="clear"></div>
                         </div>
                     {/if}
