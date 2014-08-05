@@ -509,11 +509,14 @@ class CRM_Core_Resources {
       if (!CRM_Core_BAO_Setting::getItem(CRM_Core_BAO_Setting::SYSTEM_PREFERENCES_NAME, 'disable_core_css')) {
         $this->addStyleFile('civicrm', 'css/civicrm.css', -99, $region);
       }
-    }
-     if (CRM_Core_BAO_Setting::getItem(CRM_Core_BAO_Setting::SYSTEM_PREFERENCES_NAME,'enable_bootstrap_css')) 
+     else{
+
+      if (!CRM_Core_BAO_Setting::getItem(CRM_Core_BAO_Setting::SYSTEM_PREFERENCES_NAME,'enable_bootstrap_css')) 
       {
-         $this->addstyleFile('bootstrap', 'css/bootstrap.css', -99, $region);
+         $this->addstyleFile('civicrm', 'css/civicrm.bootstrap.css', -99, $region);
       }
+    }
+  }
     return $this;
   }
 
