@@ -6209,6 +6209,7 @@ button.close {
 label {
   color: #000000;
   text-align: left;
+  font-size: 16px;
 }
 /* Styles for credit card payment logos */
 .crm-container .credit_card_type-section .crm-credit_card_type-icons a {
