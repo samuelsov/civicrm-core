@@ -26,7 +26,7 @@
 {crmRegion name="billing-block"}
 {* Add 'required' marker to billing fields in this template for front-end / online contribution and event registration forms only. *}
 {if $context EQ 'front-end'}
-  {assign var=reqMark value=' <span class="crm-marker" title="This field is required.">*</span>'}
+  {assign var=reqMark value=' <span class="col-sm-offset-7 crm-marker" title="This field is required.">*</span>'}
 {else}
   {assign var=reqMark value=''}
 {/if}
