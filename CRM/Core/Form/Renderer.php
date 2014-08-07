@@ -110,7 +110,7 @@ class CRM_Core_Form_Renderer extends HTML_QuickForm_Renderer_ArraySmarty {
     if (!empty($el['label'])) {
       $id = $element->getAttribute('id');
       if (!empty($id)) {
-        $el['label'] = '<label class="col-sm-10 control-label" for="' . $id . '">' . $el['label'] . '</label>';
+        $el['label'] = '<label class="col-sm-2 control-label" for="' . $id . '">' . $el['label'] . '</label>';
       }
       else {
         $el['label'] = "<label>{$el['label']}</label>";
