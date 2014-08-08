@@ -87,11 +87,13 @@
                              <div class="form-group content col-sm-6 col-sm-offset-4">
                                  {$form.credit_card_type.html}
                                  <div class="form-group crm-credit_card_type-icons"></div>
+                                 </br>
                              </div>
                              <div class="clear"></div>
                         </div>
                         <br/>
                         <div class="crm-section {$form.credit_card_number.name}-section form-group">
+                             </br>
                              <div class="form-group label col-sm-3">{$form.credit_card_number.label} {$reqMark}</div>
                              <div class="form-group content col-sm-6 col-sm-offset-3 col-sm-pull-2">{$form.credit_card_number.html|crmAddClass:creditcard}
                              </div>
