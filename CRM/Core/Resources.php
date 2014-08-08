@@ -514,6 +514,8 @@ class CRM_Core_Resources {
       if (!CRM_Core_BAO_Setting::getItem(CRM_Core_BAO_Setting::SYSTEM_PREFERENCES_NAME,'enable_bootstrap_css')) 
       {
          $this->addstyleFile('civicrm', 'css/civicrm.bootstrap.css', -99, $region);
+         $this->addstyleFile('civicrm', 'css/custom.bootstrap.css', -99, $region);
+
       }
     }
   }
