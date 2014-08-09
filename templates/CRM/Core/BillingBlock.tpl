@@ -127,7 +127,7 @@
                   </div>
                     <div class="panel-body crm-section billing_name_address-section">
                         <div class="crm-section {$form.billing_first_name.name}-section form-group">
-                            <div class="form-group label col-sm-2">{$form.billing_first_name.label} {$reqMark}</div>
+                            <div class="form-group label col-sm-2">{$form.billing_first_name.label} <span class="col-sm-offset-10 crm-marker" title="This field is required.">*</span></div>
                             <div class="form-group content col-sm-6 col-sm-offset-4 col-sm-pull-2">{$form.billing_first_name.html}</div>
                             <div class="clear"></div>
                         </div>
@@ -137,38 +137,38 @@
                             <div class="clear"></div>
                         </div>
                         <div class="crm-section {$form.billing_last_name.name}-section form-group">
-                            <div class="form-group label col-sm-2">{$form.billing_last_name.label} {$reqMark}</div>
+                            <div class="form-group label col-sm-2">{$form.billing_last_name.label} <span class="col-sm-offset-10 crm-marker" title="This field is required.">*</span></div>
                             <div class="form-group content col-sm-6 col-sm-offset-4 col-sm-pull-2">{$form.billing_last_name.html}</div>
                             <div class="clear"></div>
                         </div>
                         {assign var=n value=billing_street_address-$bltID}
                         <div class="crm-section {$form.$n.name}-section form-group ">
-                            <div class="form-group label col-sm-2">{$form.$n.label} {$reqMark}</div>
+                            <div class="form-group label col-sm-2">{$form.$n.label} <span class="col-sm-offset-9 crm-marker" title="This field is required.">*</span></div>
                             <div class="form-group content col-sm-6 col-sm-offset-4 col-sm-pull-2">{$form.$n.html}</div>
                             <div class="clear"></div>
                         </div>
                         {assign var=n value=billing_city-$bltID}
                         <div class="crm-section {$form.$n.name}-section form-group ">
-                            <div class="form-group label col-sm-2">{$form.$n.label} {$reqMark}</div>
+                            <div class="form-group label col-sm-2">{$form.$n.label} <span class="col-sm-pull-3 crm-marker" title="This field is required.">*</span></div>
                             <div class="form-group content col-sm-6 col-sm-offset-4 col-sm-pull-2">{$form.$n.html}</div>
                             <div class="clear"></div>
                         </div>
                         {assign var=n value=billing_country_id-$bltID}
                         <div class="crm-section {$form.$n.name}-section form-group ">
-                            <div class="form-group label col-sm-2">{$form.$n.label} {$reqMark}</div>
+                            <div class="form-group label col-sm-2">{$form.$n.label} <span class="col-sm-pull-3 crm-marker" title="This field is required.">*</span></div>
                             <div class="form-group content col-sm-6 col-sm-offset-4 col-sm-pull-2">{$form.$n.html|crmAddClass:big}</div>
 
                             <div class="clear"></div>
                         </div>
                         {assign var=n value=billing_state_province_id-$bltID}
                         <div class="crm-section {$form.$n.name}-section form-group">
-                            <div class="form-group label col-sm-2">{$form.$n.label} {$reqMark}</div>
+                            <div class="form-group label col-sm-2">{$form.$n.label} <span class="col-sm-offset-8 crm-marker" title="This field is required.">*</span></div>
                             <div class="form-group content col-sm-6 col-sm-offset-4 col-sm-pull-2">{$form.$n.html|crmAddClass:big}</div>
                             <div class="clear"></div>
                         </div>
                         {assign var=n value=billing_postal_code-$bltID}
                         <div class="crm-section {$form.$n.name}-section form-group">
-                            <div class="form-group label col-sm-2">{$form.$n.label} {$reqMark}</div>
+                            <div class="form-group label col-sm-2">{$form.$n.label} <span class="col-sm-offset-6 crm-marker" title="This field is required.">*</span></div>
                             <div class="form-group content col-sm-6 col-sm-offset-4 col-sm-pull-2">{$form.$n.html}</div>
                             <div class="clear"></div>
                         </div>
