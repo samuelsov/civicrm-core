@@ -471,10 +471,17 @@ class CRM_Core_Form extends HTML_QuickForm_Page {
       $js = CRM_Utils_Array::value('js', $button);
       $isDefault = CRM_Utils_Array::value('isDefault', $button, FALSE);
       if ($isDefault) {
+<<<<<<< HEAD
         $attrs = array('class' => 'btn btn-success form-submit default');
       }
       else {
         $attrs = array('class' => 'btn btn-info form-submit');
+=======
+        $attrs = array('class' => 'crm-form-submit default');
+      }
+      else {
+        $attrs = array('class' => 'crm-form-submit');
+>>>>>>> upstream/master
       }
 
       if ($js) {

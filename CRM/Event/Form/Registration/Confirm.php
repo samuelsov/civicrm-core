@@ -303,7 +303,7 @@ class CRM_Event_Form_Registration_Confirm extends CRM_Event_Form_Registration {
       $this->add('image',
         $this->_checkoutButtonName,
         $this->_paymentProcessor['url_button'],
-        array('class' => 'form-submit')
+        array('class' => 'crm-form-submit')
       );
 
       $this->addButtons(array(
@@ -1089,14 +1089,6 @@ class CRM_Event_Form_Registration_Confirm extends CRM_Event_Form_Registration {
    * @param $form
    */
   public static function assignProfiles(&$form) {
-    $addParticipantProfile = $form->get('addParticipantProfile');
-    $primaryParticipantProfile = $form->get('primaryParticipantProfile');
-    if (!empty($addParticipantProfile) || !empty($primaryParticipantProfile)) {
-      $form->assign('addParticipantProfile', $addParticipantProfile);
-      $form->assign('primaryParticipantProfile', $primaryParticipantProfile);
-      return;
-    }
-
     $participantParams = $form->_params;
     $formattedValues = $profileFields = array();
     $count             = 1;

@@ -118,7 +118,7 @@ function showHideByValue(trigger_field_id, trigger_value, target_element_id, tar
     if (field_type == 'radio') {
       var target = target_element_id.split("|");
       for (var j = 0; j < target.length; j++) {
-        if (cj('[name="' + trigger_field_id + '"]').is(':checked')) {
+        if (cj('[name="' + trigger_field_id + '"]:first').is(':checked')) {
           if (invert) {
             cj('#' + target[j]).hide();
           }
@@ -516,6 +516,9 @@ CRM.strings = CRM.strings || {};
           }
         })
         .find('input.select-row:checked').parents('tr').addClass('crm-row-selected');
+      if ($("input:radio[name=radio_ts]").size() == 1) {
+        $("input:radio[name=radio_ts]").prop("checked", true);
+      }
       $('.crm-select2:not(.select2-offscreen, .select2-container)', e.target).crmSelect2();
       $('.crm-form-entityref:not(.select2-offscreen, .select2-container)', e.target).crmEntityRef();
       // Cache Form Input initial values
@@ -773,7 +776,7 @@ CRM.strings = CRM.strings || {};
    */
   CRM.confirm = function (options) {
     var dialog, settings = {
-      title: ts('Confirm Action'),
+      title: ts('Confirm'),
       message: ts('Are you sure you want to continue?'),
       width: 'auto',
       modal: true,

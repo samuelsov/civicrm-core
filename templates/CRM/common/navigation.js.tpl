@@ -33,7 +33,7 @@
             <input type="text" id="sort_contact_id" style="display: none" />
             <input type="hidden" name="hidden_location" value="1" />
             <input type="hidden" name="qfKey" value="{crmKey name='CRM_Contact_Controller_Search' addSequence=1}" />
-            <div style="height:1px; overflow:hidden;"><input type="submit" value="{ts}Go{/ts}" name="_qf_Advanced_refresh" class="form-submit default" /></div>
+            <div style="height:1px; overflow:hidden;"><input type="submit" value="{ts}Go{/ts}" name="_qf_Advanced_refresh" class="crm-form-submit default" /></div>
           </div>
         </form>
         <ul>
@@ -126,14 +126,14 @@ $('#civicrm-menu').ready(function() {
   $('.crm-hidemenu').click(function() {
     $.Menu.closeAll();
     $('#civicrm-menu').slideUp();
-    var alert = CRM.alert({/literal}'<a href="#" id="crm-restore-menu">{ts escape='js'}Restore Menu{/ts}</a>', "{ts escape='js'}CiviCRM Menu Hidden{/ts}"{literal});
-    $('#crm-notification-container')
-      .off('.hideMenu')
-      .on('click.hideMenu', '#crm-restore-menu', function() {
+    if ($('#crm-notification-container').length) {
+      var alert = CRM.alert({/literal}'<a href="#" id="crm-restore-menu">{ts escape='js'}Restore Menu{/ts}</a>', "{ts escape='js'}CiviCRM Menu Hidden{/ts}"{literal});
+      $('#crm-restore-menu').button({icons: {primary: 'ui-icon-arrowreturnthick-1-w'}}).click(function(e) {
+        e.preventDefault();
         alert.close();
         $('#civicrm-menu').slideDown();
-        return false;
       });
+    }
     return false;
   });
   $('.crm-quickSearchField').click(function() {

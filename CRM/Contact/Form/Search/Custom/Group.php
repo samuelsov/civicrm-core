@@ -97,7 +97,7 @@ class CRM_Contact_Form_Search_Custom_Group
 
     $this->setTitle(ts('Include / Exclude Search'));
 
-    $groups = CRM_Core_PseudoConstant::group();
+    $groups = CRM_Core_PseudoConstant::nestedGroup();
 
     $tags = CRM_Core_PseudoConstant::get('CRM_Core_DAO_EntityTag', 'tag_id', array('onlyActive' => FALSE));
     if (count($groups) == 0 || count($tags) == 0) {
@@ -168,6 +168,9 @@ class CRM_Contact_Form_Search_Custom_Group
 
       $defaults['includeGroups'] = CRM_Utils_Array::value('includeGroups', $this->_formValues);
       $defaults['excludeGroups'] = CRM_Utils_Array::value('excludeGroups', $this->_formValues);
+
+      $defaults['includeTags'] = CRM_Utils_Array::value('includeTags', $this->_formValues);
+      $defaults['excludeTags'] = CRM_Utils_Array::value('excludeTags', $this->_formValues);
     }
 
     return $defaults;

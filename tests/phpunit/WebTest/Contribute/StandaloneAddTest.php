@@ -95,7 +95,7 @@ class WebTest_Contribute_StandaloneAddTest extends CiviSeleniumTestCase {
     $this->waitForElementPresent("check_number");
     $this->type("check_number", "check #1041");
     $this->click("is_email_receipt");
-
+    $this->assertTrue($this->isChecked("is_email_receipt"), 'Send Receipt checkbox should be checked.');
     $this->type("trxn_id", "P20901X1" . rand(100, 10000));
 
     // soft credit
@@ -126,6 +126,9 @@ class WebTest_Contribute_StandaloneAddTest extends CiviSeleniumTestCase {
 
     // Clicking save.
     $this->click("_qf_Contribution_upload");
+    // Ask for confirmation to send a receipt to the contributor on 'is_email_reciept' check
+    $this->assertTrue((bool)preg_match("/^Click OK to save this contribution record AND send a receipt to the contributor now./",$this->getConfirmation()));
+    $this->chooseOkOnNextConfirmation();
     $this->waitForPageToLoad($this->getTimeoutMsec());
 
     // Is status message correct?
