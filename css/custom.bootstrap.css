@@ -1,9 +1,9 @@
+@import "civicrm.bootstrap.css";
 label {
   color: #000000;
+  text-align: left;
   font-size: 14px;
-}
-input[type="radio"] {
-  margin: 5px;
+  padding-left: 8px;
 }
 /* Styles for credit card payment logos */
 .crm-container .credit_card_type-section .crm-credit_card_type-icons a {
@@ -17,37 +17,35 @@ input[type="radio"] {
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
   border-radius: 3px;
   border: 1px solid #FFFFFF;
-  padding: 5px 5px 25px 25px;
 }
 .crm-container .credit_card_type-section .crm-credit_card_type-icons .crm-credit_card_type-icon-visa {
   background-position: -50px 0;
-  padding: 10px 10px 25px 25px;
 }
 .crm-container .credit_card_type-section .crm-credit_card_type-icons .crm-credit_card_type-icon-mastercard {
   background-position: -100px 0;
-  padding: 10px 10px 25px 25px;
 }
 .crm-container .credit_card_type-section .crm-credit_card_type-icons .crm-credit_card_type-icon-amex {
   background-position: -150px 0;
-  padding: 10px 10px 25px 25px;
 }
 .crm-container .credit_card_type-section .crm-credit_card_type-icons .crm-credit_card_type-icon-discover {
   background-position: -200px 0;
-  padding: 10px 10px 25px 25px;
 }
 .crm-container .credit_card_type-section .crm-credit_card_type-icons .crm-credit_card_type-icon-jcb {
   background-position: -250px 0;
-  padding: 10px 10px 25px 25px;
 }
 .crm-container .credit_card_type-section .crm-credit_card_type-icons .crm-credit_card_type-icon-unionpay {
   background-position: -300px 0;
-  padding: 10px 10px 25px 25px;
 }
 .cvv2-icon {
+  display: block;
   width: 50px;
   height: 30px;
   background: url(../i/creditcard-icons.png) no-repeat 0 0 transparent;
 }
 .crm-marker {
   color: red;
+  padding: 0px 10px 0px 0px;
+}
+.col-sm-2 {
+  width: auto;
 }
