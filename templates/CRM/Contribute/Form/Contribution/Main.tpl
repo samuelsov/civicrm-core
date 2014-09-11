@@ -99,7 +99,7 @@
 
   {capture assign='reqMark'}<span class="marker" title="{ts}This field is required.{/ts}">*</span>{/capture}
   <div class="crm-contribution-page-id-{$contributionPageID} crm-block crm-contribution-main-form-block">
-  <div id="intro_text" class="crm-section intro_text-section">
+  <div id="intro_text" class="form-group crm-section intro_text-section alert alert-info">
     {$intro_text}
   </div>
   {include file="CRM/common/cidzero.tpl"}
@@ -123,9 +123,9 @@
       <div class="clear"></div>
     </div>
       {else}
-    <div class="crm-section {$form.is_pledge.name}-section">
-      <div class="label">&nbsp;</div>
-      <div class="content">
+    <div class="crm-section {$form.is_pledge.name}-section form-group ">
+      <div class="form-group col-sm-2 label">&nbsp;</div>
+      <div class="form-group col-sm-6 content">
         {$form.is_pledge.html}&nbsp;
         {if $is_pledge_interval}
           {$form.pledge_frequency_interval.html}&nbsp;
@@ -156,10 +156,10 @@
         </span>
       {/if}
       <div id="recurHelp" class="description">
-				{ts}Your recurring contribution will be processed automatically.{/ts}
-				{if $is_recur_installments}
-					{ts}You can specify the number of installments, or you can leave the number of installments blank if you want to make an open-ended commitment. In either case, you can choose to cancel at any time.{/ts}
-				{/if}
+        {ts}Your recurring contribution will be processed automatically.{/ts}
+        {if $is_recur_installments}
+          {ts}You can specify the number of installments, or you can leave the number of installments blank if you want to make an open-ended commitment. In either case, you can choose to cancel at any time.{/ts}
+        {/if}
         {if $is_email_receipt}
           {ts}You will receive an email receipt for each recurring contribution.{/ts}
         {/if}
@@ -177,8 +177,8 @@
   {/if}
   {assign var=n value=email-$bltID}
   <div class="crm-section {$form.$n.name}-section">
-    <div class="label">{$form.$n.label}</div>
-    <div class="content">
+    <div class="col-sm-3 label">{$form.$n.label}</div>
+    <div class="form-group content col-sm-6 col-sm-offset-3 col-sm-pull-2">
       {$form.$n.html}
     </div>
     <div class="clear"></div>
@@ -277,7 +277,7 @@
   </fieldset>
   {/if}
 
-  <div id="billing-payment-block">
+  <div id="billing-payment-block" class="col-sm-12">
     {* If we have a payment processor, load it - otherwise it happens via ajax *}
     {if $ppType}
       {include file="CRM/Contribute/Form/Contribution/Main.tpl" snippet=4}
@@ -301,11 +301,11 @@
   {if $isCaptcha}
     {include file='CRM/common/ReCAPTCHA.tpl'}
   {/if}
-  <div id="crm-submit-buttons" class="crm-submit-buttons">
+  <div id="crm-submit-buttons" class="col-sm-4 form-group col-sm-offset-10 crm-submit-buttons">
   {include file="CRM/common/formButtons.tpl" location="bottom"}
   </div>
   {if $footer_text}
-  <div id="footer_text" class="crm-section contribution_footer_text-section">
+  <div id="footer_text" class="col-sm-2 crm-section contribution_footer_text-section">
     <p>{$footer_text}</p>
   </div>
   {/if}
@@ -353,10 +353,10 @@
   {/if}
   {literal}
 
-	cj('input[name="soft_credit_type_id"]').on('change', function() {
-		enableHonorType();
-	});
-	
+  cj('input[name="soft_credit_type_id"]').on('change', function() {
+    enableHonorType();
+  });
+  
   function enableHonorType( ) {
     var selectedValue = cj('input[name="soft_credit_type_id"]:checked'); 
     if ( selectedValue.val() > 0) {
@@ -367,9 +367,9 @@
     }
   }
 
-	cj('input[id="is_recur"]').on('change', function() {
-		showRecurHelp();
-	});
+  cj('input[id="is_recur"]').on('change', function() {
+    showRecurHelp();
+  });
 
   function showRecurHelp( ) {
     var showHelp = cj('input[id="is_recur"]:checked'); 
@@ -380,7 +380,7 @@
       cj('#recurHelp').hide();
     }
   }
-	
+  
   function pcpAnonymous( ) {
     // clear nickname field if anonymous is true
     if (document.getElementsByName("pcp_is_anonymous")[1].checked) {
@@ -435,8 +435,8 @@
 
   CRM.$(function($) {
     toggleConfirmButton();
-		enableHonorType();
-		showRecurHelp();
+    enableHonorType();
+    showRecurHelp();
   });
 
   function showHidePayPalExpressOption() {

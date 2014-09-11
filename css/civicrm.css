@@ -1924,7 +1924,7 @@ div.grippie {
 
 #crm-container .ui-tabs-panel {
   padding: 4px;
-  min-height: 12em;
+  font-size: 13px;
 }
 
 #crm-container div.contact_details {
@@ -4495,8 +4495,7 @@ span.crm-status-icon {
   background-position: -101px -222px;background-image: url("../i/icons/jquery-ui-3E3E3E.gif");
 }
 
-.crm-container .survey-completed,
-.crm-container .strikethrough {
+.crm-container .survey-completed {
   text-decoration: line-through;
 }
 
@@ -4513,8 +4512,11 @@ span.crm-status-icon {
 .crm-container select.ng-pristine{
     border: 1px solid #666;
 }
+<<<<<<< HEAD
 
 /* block-ui */
 .crm-container .blockUI.blockOverlay {
   background: url("../i/loading-overlay.gif") center center no-repeat white !important;
 }
+=======
+>>>>>>> aab7d09c255708e3f3b77902056275031c9747fa

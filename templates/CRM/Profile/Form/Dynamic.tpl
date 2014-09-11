@@ -41,7 +41,7 @@
 {* Replace div id "crm-container" only when profile is not loaded in civicrm container, i.e for profile shown in my account and in profile standalone mode otherwise id should be "crm-profile-block" *}
 
   {if $action eq 1 or $action eq 2 or $action eq 4 }
-  <div id="crm-profile-block" class="crm-container-snippet crm-public">
+  <div id="crm-profile-block" class="row crm-container-snippet crm-public">
     {else}
   <div id="crm-container" class="crm-container crm-public" lang="{$config->lcMessages|truncate:2:"":true}" xml:lang="{$config->lcMessages|truncate:2:"":true}">
   {/if}
@@ -139,11 +139,11 @@
             <div class="clear"></div>
           </div>{* end of main edit section div*}
           {else}
-          <div id="editrow-{$n}" class="crm-section editrow_{$n}-section form-item">
-            <div class="label">
+          <div id="editrow-{$n}" class="crm-section editrow_{$n}-section form-item form-group">
+            <div class="form-group col-sm-3 control-label label">
               {$form.$n.label}
             </div>
-            <div class="edit-value content">
+            <div class="form-group col-sm-6 col-sm-offset-3 col-sm-pull-3 edit-value content">
               {if $n|substr:0:3 eq 'im-'}
                 {assign var="provider" value=$n|cat:"-provider_id"}
                 {$form.$provider.html}&nbsp;
@@ -221,7 +221,7 @@
       {include file="CRM/Profile/Page/MultipleRecordFieldsListing.tpl" showListing=true}
         {assign var=floatStyle value='float:right'}
       {/if}
-      <div class="crm-submit-buttons" style='{$floatStyle}'>
+      <div class="col-sm-offset-9 crm-submit-buttons" style='{$floatStyle}'>
       {include file="CRM/common/formButtons.tpl"}{if $isDuplicate}<span class="crm-button">{$form._qf_Edit_upload_duplicate.html}</span>{/if}
       </div>
     {/if}

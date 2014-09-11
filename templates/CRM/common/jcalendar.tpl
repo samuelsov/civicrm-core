@@ -53,7 +53,7 @@
 {assign var='displayDate' value=$elementId|cat:"_display"}
 
 {if $action neq 1028}
-    <input type="text" name="{$displayDate}" id="{$displayDate}" class="dateplugin" autocomplete="off"/>
+    <input type="text" name="{$displayDate}" id="{$displayDate}" class="form-control dateplugin" autocomplete="off"/>
 {/if}
 
 {if $batchUpdate AND $timeElement AND $tElement}

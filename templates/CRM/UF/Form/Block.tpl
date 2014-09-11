@@ -44,7 +44,7 @@
         {/if}
 
         {if $mode ne 8 && $action ne 1028 && $action ne 4}
-        <fieldset class="crm-profile crm-profile-id-{$field.group_id} crm-profile-name-{$field.groupName}"><legend>{$field.groupTitle}</legend>
+        <fieldset class="col-sm-12 crm-profile crm-profile-id-{$field.group_id} crm-profile-name-{$field.groupName} form-group "><legend class="alert alert-info">{$field.groupTitle}</legend>
         {/if}
 
         {if ($form.formName eq 'Confirm' OR $form.formName eq 'ThankYou') AND $prefix neq 'honor'}
@@ -101,11 +101,11 @@
             <div class="clear"></div>
           </div>
         {else}
-          <div class="crm-section editrow_{$n}-section form-item" id="editrow-{$n}">
-            <div class="label">
+          <div class="crm-section editrow_{$n}-section form-item form-group" id="editrow-{$n}">
+            <div class="col-sm-2 label form-group">
               {if $prefix}{$form.$prefix.$n.label}{else}{$form.$n.label}{/if}
             </div>
-            <div class="content">
+            <div class="col-sm-6 col-sm-offset-4 col-sm-pull-2 content form-group">
               {if $n|substr:0:3 eq 'im-'}
                 {assign var="provider" value=$n|cat:"-provider_id"}
                 {$form.$provider.html}&nbsp;

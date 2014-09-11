@@ -25,13 +25,13 @@
 *}
 {strip}
 <fieldset>
-<div id="help" class="messages help">
+<div id="help" class="alert alert-success messages help">
     <div class="icon info-icon"></div>&nbsp;
     {ts}Custom searches are developed and contributed by members of the CiviCRM community.{/ts} {help id="id-custom-searches"}
 </div>
 {if $rows}
     {foreach from=$rows item=customTitle key=csid}
-        <div class="action-link">
+        <div class="form-group action-link">
             <a href="{crmURL p="civicrm/contact/search/custom" q="csid=`$csid`&reset=1"}" title="{ts}Use this search{/ts}">&raquo; {$customTitle}</a>
         </div>
     {/foreach}
