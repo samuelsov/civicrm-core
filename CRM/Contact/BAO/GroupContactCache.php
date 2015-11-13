@@ -255,17 +255,16 @@ AND    g.refresh_date IS NULL
       // also update the group with cache date information
       //make sure to give original timezone settings again.
       $now = CRM_Utils_Date::getUTCTime();
-      $refresh = 'null';
+      $setClause = "SET cache_date = $now, refresh_date = null";
     }
     else {
-      $now = 'null';
-      $refresh = 'null';
+      $setClause = "SET refresh_date = null";
     }
 
     $groupIDs = implode(',', $groupID);
     $sql = "
-UPDATE civicrm_group
-SET    cache_date = $now, refresh_date = $refresh
+UPDATE civicrm_group " . 
+$setClause . "
 WHERE  id IN ( $groupIDs )
 ";
     CRM_Core_DAO::executeQuery($sql);
