@@ -4267,8 +4267,6 @@ WHERE eft.financial_trxn_id IN ({$trxnId}, {$baseTrxnId['financialTrxnId']})
       $params['total_amount'] = CRM_Utils_Array::value('total_amount', $params) + $params['tax_amount'];
     }
     elseif (isset($params['api.line_item.create'])) {
-
-      watchdog('debug', 'bb');
       // Update total amount of contribution using lineItem
       $taxAmountArray = array();
       foreach ($params['api.line_item.create'] as $key => $value) {
@@ -4282,8 +4280,6 @@ WHERE eft.financial_trxn_id IN ({$trxnId}, {$baseTrxnId['financialTrxnId']})
       $params['total_amount'] = $params['total_amount'] + $params['tax_amount'];
     }
     else {
-
-      watchdog('debug', 'cc');
       // update line item of contrbution
       if (isset($params['financial_type_id']) && array_key_exists($params['financial_type_id'], $taxRates) && $isLineItem) {
         $taxRate = $taxRates[$params['financial_type_id']];
@@ -4291,7 +4287,6 @@ WHERE eft.financial_trxn_id IN ({$trxnId}, {$baseTrxnId['financialTrxnId']})
         $params['tax_amount'] = round($taxAmount['tax_amount'], 2);
       }
     }
-      watchdog('debug', 'toto -- ' . print_r($params,1));
     return $params;
   }
 
