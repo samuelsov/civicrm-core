@@ -4245,9 +4245,8 @@ WHERE eft.financial_trxn_id IN ({$trxnId}, {$baseTrxnId['financialTrxnId']})
     if (isset($params['financial_type_id']) && array_key_exists($params['financial_type_id'], $taxRates) &&
       empty($params['skipLineItem']) && !$isLineItem
     ) {
-      $taxRateParams = $taxRates[$params['financial_type_id']];
-      $taxAmount = CRM_Contribute_BAO_Contribution_Utils::calculateTaxAmount(CRM_Utils_Array::value('total_amount', $params), $taxRateParams);
-      $params['tax_amount'] = round($taxAmount['tax_amount'], 2);
+      // start with 0 and add up each line item tax
+      $params['tax_amount'] = 0;
 
       // Get Line Item on update of contribution
       if (isset($params['id'])) {
@@ -4258,12 +4257,18 @@ WHERE eft.financial_trxn_id IN ({$trxnId}, {$baseTrxnId['financialTrxnId']})
       }
       foreach ($params['line_item'] as $setID => $priceField) {
         foreach ($priceField as $priceFieldID => $priceFieldValue) {
-          $params['line_item'][$setID][$priceFieldID]['tax_amount'] = $params['tax_amount'];
+          $lineTaxRateParams = $taxRates[$params['line_item'][$setID][$priceFieldID]['financial_type_id']];
+          $taxAmount = CRM_Contribute_BAO_Contribution_Utils::calculateTaxAmount($params['line_item'][$setID][$priceFieldID]['line_total'], $lineTaxRateParams, $unknownIfMoneyIsClean);
+          $params['line_item'][$setID][$priceFieldID]['tax_amount'] = round($taxAmount['tax_amount'], 2);
+          $params['tax_amount'] += $params['line_item'][$setID][$priceFieldID]['tax_amount'];
         }
       }
+
       $params['total_amount'] = CRM_Utils_Array::value('total_amount', $params) + $params['tax_amount'];
     }
     elseif (isset($params['api.line_item.create'])) {
+
+      watchdog('debug', 'bb');
       // Update total amount of contribution using lineItem
       $taxAmountArray = array();
       foreach ($params['api.line_item.create'] as $key => $value) {
@@ -4277,6 +4282,8 @@ WHERE eft.financial_trxn_id IN ({$trxnId}, {$baseTrxnId['financialTrxnId']})
       $params['total_amount'] = $params['total_amount'] + $params['tax_amount'];
     }
     else {
+
+      watchdog('debug', 'cc');
       // update line item of contrbution
       if (isset($params['financial_type_id']) && array_key_exists($params['financial_type_id'], $taxRates) && $isLineItem) {
         $taxRate = $taxRates[$params['financial_type_id']];
@@ -4284,6 +4291,7 @@ WHERE eft.financial_trxn_id IN ({$trxnId}, {$baseTrxnId['financialTrxnId']})
         $params['tax_amount'] = round($taxAmount['tax_amount'], 2);
       }
     }
+      watchdog('debug', 'toto -- ' . print_r($params,1));
     return $params;
   }
 
