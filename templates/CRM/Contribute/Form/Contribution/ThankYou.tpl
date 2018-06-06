@@ -133,48 +133,32 @@
 
         {* Recurring contribution / pledge information *}
         {if $is_recur}
-          {capture assign="ts_frequency_unit"}{ts}{$frequency_unit}{/ts}{/capture}
+          {capture assign="ts_frequency_unit"}{include file="CRM/common/CRM/common/tsFrequencyUnit" count=$frequency_interval}{/capture}
           {if !empty($auto_renew)} {* Auto-renew membership confirmation *}
             {crmRegion name="contribution-thankyou-recur-membership"}
               <br />
-              {if $frequency_interval > 1}
-                <strong>{ts 1=$frequency_interval 2=$ts_frequency_unit}This membership will be renewed automatically every %1 %2(s).{/ts}</strong>
-              {else}
-                <strong>{ts 1=$ts_frequency_unit}This membership will be renewed automatically every %1.{/ts}</strong>
-              {/if}
+              <strong>{ts count=$frequency_interval 1=$ts_frequency_unit plural="This membership will be renewed automatically every %count %1."}This membership will be renewed automatically every %1.{/ts}</strong>
               <div class="description crm-auto-renew-cancel-info">({ts}You will receive an email receipt which includes information about how to cancel the auto-renewal option.{/ts})</div>
             {/crmRegion}
           {else}
             {crmRegion name="contribution-thankyou-recur"}
               {if $installments > 1}
-                {if $frequency_interval > 1}
-                  <p><strong>{ts 1=$frequency_interval 2=$ts_frequency_unit 3=$installments}This recurring contribution will be automatically processed every %1 %2s for a total %3 installments (including this initial contribution).{/ts}</strong></p>
-                {else}
-                    <p><strong>{ts 1=$ts_frequency_unit 2=$installments}This recurring contribution will be automatically processed every %1 for a total %2 installments (including this initial contribution).{/ts}</strong></p>
-                  {/if}
-                {else}
-                  {if $frequency_interval > 1}
-                    <p><strong>{ts 1=$frequency_interval 2=$ts_frequency_unit}This recurring contribution will be automatically processed every %1 %2s.{/ts}</strong></p>
-                  {else}
-                    <p><strong>{ts 1=$ts_frequency_unit}This recurring contribution will be automatically processed every %1.{/ts}</strong></p>
-                  {/if}
-                {/if}
-                  <p>
-                  {if $is_email_receipt}
-                    {ts}You will receive an email receipt which includes information about how to update or cancel this recurring contribution.{/ts}
-                  {/if}
-                </p>
+                <p><strong>{ts count=$frequency_interval 1=$ts_frequency_unit 2=$installments plural="This recurring contribution will be automatically processed every %count %2 for a total %3 installments (including this initial contribution)."}This recurring contribution will be automatically processed every %1 for a total %2 installments (including this initial contribution).{/ts}</strong></p>
+              {else}
+                <p><strong>{ts count=$frequency_interval 1=$ts_frequency_unit plural="This recurring contribution will be automatically processed every %count %2."}This recurring contribution will be automatically processed every %1.{/ts}</strong></p>
+              {/if}
+              <p>
+              {if $is_email_receipt}
+                {ts}You will receive an email receipt which includes information about how to update or cancel this recurring contribution.{/ts}
+              {/if}
+              </p>
             {/crmRegion}
           {/if}
         {/if}
 
         {if $is_pledge}
-          {capture assign="ts_frequency_unit"}{ts}{$pledge_frequency_unit}{/ts}{/capture}
-          {if $pledge_frequency_interval GT 1}
-            <p><strong>{ts 1=$pledge_frequency_interval 2=$ts_frequency_unit 3=$pledge_installments}I pledge to contribute this amount every %1 %2s for %3 installments.{/ts}</strong></p>
-          {else}
-            <p><strong>{ts 1=$pledge_frequency_interval 2=$ts_frequency_unit 3=$pledge_installments}I pledge to contribute this amount every %2 for %3 installments.{/ts}</strong></p>
-          {/if}
+          {capture assign="ts_frequency_unit"}{include file="CRM/common/CRM/common/tsFrequencyUnit" count=$pledge_frequency_interval}{/capture}
+          <p><strong>{ts count=$pledge_frequency_interval 2=$ts_frequency_unit 3=$pledge_installments plural="I pledge to contribute this amount every %count %2 for %3 installments."}I pledge to contribute this amount every %2 for %3 installments.{/ts}</strong></p>
           <p>
             {if $is_pay_later}
               {ts 1=$receiptFromEmail}We will record your initial pledge payment when we receive it from you. You will be able to modify or cancel future pledge payments at any time by logging in to your account or contacting us at %1.{/ts}
