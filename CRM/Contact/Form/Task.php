@@ -34,7 +34,7 @@
 /**
  * This class generates form components for search-result tasks.
  */
-class CRM_Contact_Form_Task extends CRM_Core_Form {
+class CRM_Contact_Form_Task extends CRM_Core_Form_Task {
 
   /**
    * The task being performed
@@ -94,11 +94,13 @@ class CRM_Contact_Form_Task extends CRM_Core_Form {
    * Common pre-processing function.
    *
    * @param CRM_Core_Form $form
-   * @param bool $useTable
    */
-  public static function preProcessCommon(&$form, $useTable = FALSE) {
+  public static function preProcessCommon(&$form) {
     $form->_contactIds = array();
     $form->_contactTypes = array();
+
+    $formName = CRM_Utils_System::getClassName($form->controller->getStateMachine());
+    $useTable = $formName == 'CRM_Export_StateMachine_Standalone';
 
     $isStandAlone = in_array('task', $form->urlPath) || in_array('standalone', $form->urlPath);
     if ($isStandAlone) {
@@ -150,7 +152,7 @@ class CRM_Contact_Form_Task extends CRM_Core_Form {
     $form->assign('taskName', CRM_Utils_Array::value($form->_task, $crmContactTaskTasks));
 
     if ($useTable) {
-      $form->_componentTable = CRM_Core_DAO::createTempTableName('civicrm_task_action', TRUE, $qfKey);
+      $form->_componentTable = CRM_Utils_SQL_TempTable::build()->setCategory('tskact')->setDurable()->setId($qfKey)->getName();
       $sql = " DROP TABLE IF EXISTS {$form->_componentTable}";
       CRM_Core_DAO::executeQuery($sql);
 
