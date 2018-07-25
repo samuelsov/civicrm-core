@@ -1,0 +1,199 @@
+From f629cdbfb38f413f72efd6f1ffd9434c2e7378ba Mon Sep 17 00:00:00 2001
+From: Samuel Vanhove <samuel@symbiotic.coop>
+Date: Thu, 19 Apr 2018 12:10:58 -0400
+Subject: [PATCH 1/2] dev/core#30 remove ability to get master display name
+ with the contact_id only
+
+---
+ CRM/Contact/BAO/Contact.php                 | 15 +++------------
+ CRM/Export/BAO/Export.php                   |  2 +-
+ tests/phpunit/CRM/Export/BAO/ExportTest.php | 11 ++++++++++-
+ 3 files changed, 14 insertions(+), 14 deletions(-)
+
+diff --git a/CRM/Contact/BAO/Contact.php b/CRM/Contact/BAO/Contact.php
+index 51e8f498b2d..11bbdc05fba 100644
+--- a/CRM/Contact/BAO/Contact.php
++++ b/CRM/Contact/BAO/Contact.php
+@@ -3322,30 +3322,21 @@ public static function checkUserMenuPermissions($aclPermissionedTasks, $corePerm
+    * @param int $masterAddressId
+    *   Master id.
+    * @param int $contactId
+-   *   Contact id.
++   *   Contact id. (deprecated - do not use)
+    *
+    * @return string|null
+    *   the found display name or null.
+    */
+   public static function getMasterDisplayName($masterAddressId = NULL, $contactId = NULL) {
+     $masterDisplayName = NULL;
+-    $sql = NULL;
+-    if (!$masterAddressId && !$contactId) {
++    if (!$masterAddressId) {
+       return $masterDisplayName;
+     }
+ 
+-    if ($masterAddressId) {
+-      $sql = "
++    $sql = "
+    SELECT display_name from civicrm_contact
+ LEFT JOIN civicrm_address ON ( civicrm_address.contact_id = civicrm_contact.id )
+     WHERE civicrm_address.id = " . $masterAddressId;
+-    }
+-    elseif ($contactId) {
+-      $sql = "
+-   SELECT display_name from civicrm_contact cc, civicrm_address add1
+-LEFT JOIN civicrm_address add2 ON ( add1.master_id = add2.id )
+-    WHERE cc.id = add2.contact_id AND add1.contact_id = " . $contactId;
+-    }
+ 
+     $masterDisplayName = CRM_Core_DAO::singleValueQuery($sql);
+     return $masterDisplayName;
+diff --git a/CRM/Export/BAO/Export.php b/CRM/Export/BAO/Export.php
+index 132e9318c17..41db6d7e687 100644
+--- a/CRM/Export/BAO/Export.php
++++ b/CRM/Export/BAO/Export.php
+@@ -818,7 +818,7 @@ public static function exportComponents(
+                 $masterAddressId = $iterationDAO->$field;
+               }
+               // get display name of contact that address is shared.
+-              $fieldValue = CRM_Contact_BAO_Contact::getMasterDisplayName($masterAddressId, $iterationDAO->contact_id);
++              $fieldValue = CRM_Contact_BAO_Contact::getMasterDisplayName($masterAddressId);
+             }
+           }
+ 
+diff --git a/tests/phpunit/CRM/Export/BAO/ExportTest.php b/tests/phpunit/CRM/Export/BAO/ExportTest.php
+index 6b37a8b51b0..5ae016f25b0 100644
+--- a/tests/phpunit/CRM/Export/BAO/ExportTest.php
++++ b/tests/phpunit/CRM/Export/BAO/ExportTest.php
+@@ -27,6 +27,14 @@ class CRM_Export_BAO_ExportTest extends CiviUnitTestCase {
+    */
+   protected $activityIDs = [];
+ 
++  /**
++   * Master Address ID created for testing.
++   *
++   * @var int
++   */
++  protected $masterAddressId;
++
++
+   public function tearDown() {
+     $this->quickCleanup(['civicrm_contact', 'civicrm_email', 'civicrm_address']);
+     parent::tearDown();
+@@ -250,6 +258,7 @@ public function setUpContactExportData() {
+       'location_type_id' => "Home",
+       'master_id' => $addressId,
+     ));
++    $this->masterAddressId = $addressId;
+ 
+   }
+ 
+@@ -331,7 +340,7 @@ public function testExportMasterAddress() {
+ 
+     //assert the exported result
+     $masterName = CRM_Core_DAO::singleValueQuery("SELECT {$field} FROM {$tableName}");
+-    $displayName = CRM_Contact_BAO_Contact::getMasterDisplayName(NULL, $this->contactIDs[1]);
++    $displayName = CRM_Contact_BAO_Contact::getMasterDisplayName($this->masterAddressId);
+     $this->assertEquals($displayName, $masterName);
+ 
+     // delete the export temp table and component table
+
+From f5bcd4b378938bde3abebba985177ea954589ae4 Mon Sep 17 00:00:00 2001
+From: Samuel Vanhove <samuel@symbiotic.coop>
+Date: Thu, 19 Apr 2018 12:10:58 -0400
+Subject: [PATCH 2/2] dev/core#30 remove ability to get master display name
+ with the contact_id only
+
+---
+ CRM/Contact/BAO/Contact.php                 | 15 +++------------
+ CRM/Export/BAO/Export.php                   |  2 +-
+ tests/phpunit/CRM/Export/BAO/ExportTest.php | 11 ++++++++++-
+ 3 files changed, 14 insertions(+), 14 deletions(-)
+
+diff --git a/CRM/Contact/BAO/Contact.php b/CRM/Contact/BAO/Contact.php
+index 9c95a6894a4..01499868630 100644
+--- a/CRM/Contact/BAO/Contact.php
++++ b/CRM/Contact/BAO/Contact.php
+@@ -3340,30 +3340,21 @@ public static function checkUserMenuPermissions($aclPermissionedTasks, $corePerm
+    * @param int $masterAddressId
+    *   Master id.
+    * @param int $contactId
+-   *   Contact id.
++   *   Contact id. (deprecated - do not use)
+    *
+    * @return string|null
+    *   the found display name or null.
+    */
+   public static function getMasterDisplayName($masterAddressId = NULL, $contactId = NULL) {
+     $masterDisplayName = NULL;
+-    $sql = NULL;
+-    if (!$masterAddressId && !$contactId) {
++    if (!$masterAddressId) {
+       return $masterDisplayName;
+     }
+ 
+-    if ($masterAddressId) {
+-      $sql = "
++    $sql = "
+    SELECT display_name from civicrm_contact
+ LEFT JOIN civicrm_address ON ( civicrm_address.contact_id = civicrm_contact.id )
+     WHERE civicrm_address.id = " . $masterAddressId;
+-    }
+-    elseif ($contactId) {
+-      $sql = "
+-   SELECT display_name from civicrm_contact cc, civicrm_address add1
+-LEFT JOIN civicrm_address add2 ON ( add1.master_id = add2.id )
+-    WHERE cc.id = add2.contact_id AND add1.contact_id = " . $contactId;
+-    }
+ 
+     $masterDisplayName = CRM_Core_DAO::singleValueQuery($sql);
+     return $masterDisplayName;
+diff --git a/CRM/Export/BAO/Export.php b/CRM/Export/BAO/Export.php
+index c1d6843e74f..24be1c67b9f 100644
+--- a/CRM/Export/BAO/Export.php
++++ b/CRM/Export/BAO/Export.php
+@@ -806,7 +806,7 @@ public static function exportComponents(
+                 $masterAddressId = $iterationDAO->$field;
+               }
+               // get display name of contact that address is shared.
+-              $fieldValue = CRM_Contact_BAO_Contact::getMasterDisplayName($masterAddressId, $iterationDAO->contact_id);
++              $fieldValue = CRM_Contact_BAO_Contact::getMasterDisplayName($masterAddressId);
+             }
+           }
+ 
+diff --git a/tests/phpunit/CRM/Export/BAO/ExportTest.php b/tests/phpunit/CRM/Export/BAO/ExportTest.php
+index e5cadf81e88..39600c858a8 100644
+--- a/tests/phpunit/CRM/Export/BAO/ExportTest.php
++++ b/tests/phpunit/CRM/Export/BAO/ExportTest.php
+@@ -27,6 +27,14 @@ class CRM_Export_BAO_ExportTest extends CiviUnitTestCase {
+    */
+   protected $activityIDs = [];
+ 
++  /**
++   * Master Address ID created for testing.
++   *
++   * @var int
++   */
++  protected $masterAddressId;
++
++
+   public function tearDown() {
+     $this->quickCleanup(['civicrm_contact', 'civicrm_email', 'civicrm_address']);
+     $this->quickCleanUpFinancialEntities();
+@@ -252,6 +260,7 @@ public function setUpContactExportData() {
+       'location_type_id' => "Home",
+       'master_id' => $addressId,
+     ));
++    $this->masterAddressId = $addressId;
+ 
+   }
+ 
+@@ -392,7 +401,7 @@ public function testExportMasterAddress() {
+ 
+     //assert the exported result
+     $masterName = CRM_Core_DAO::singleValueQuery("SELECT {$field} FROM {$tableName}");
+-    $displayName = CRM_Contact_BAO_Contact::getMasterDisplayName(NULL, $this->contactIDs[1]);
++    $displayName = CRM_Contact_BAO_Contact::getMasterDisplayName($this->masterAddressId);
+     $this->assertEquals($displayName, $masterName);
+ 
+     // delete the export temp table and component table

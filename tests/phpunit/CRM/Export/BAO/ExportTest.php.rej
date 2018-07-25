@@ -1,0 +1,18 @@
+diff a/tests/phpunit/CRM/Export/BAO/ExportTest.php b/tests/phpunit/CRM/Export/BAO/ExportTest.php	(rejected hunks)
+@@ -252,6 +260,7 @@ public function setUpContactExportData() {
+       'location_type_id' => "Home",
+       'master_id' => $addressId,
+     ));
++    $this->masterAddressId = $addressId;
+ 
+   }
+ 
+@@ -392,7 +401,7 @@ public function testExportMasterAddress() {
+ 
+     //assert the exported result
+     $masterName = CRM_Core_DAO::singleValueQuery("SELECT {$field} FROM {$tableName}");
+-    $displayName = CRM_Contact_BAO_Contact::getMasterDisplayName(NULL, $this->contactIDs[1]);
++    $displayName = CRM_Contact_BAO_Contact::getMasterDisplayName($this->masterAddressId);
+     $this->assertEquals($displayName, $masterName);
+ 
+     // delete the export temp table and component table

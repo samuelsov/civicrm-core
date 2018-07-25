@@ -1,0 +1,86 @@
+diff --git a/CRM/Contact/BAO/Contact.php b/CRM/Contact/BAO/Contact.php
+index 9c95a68..0149986 100644
+--- a/CRM/Contact/BAO/Contact.php
++++ b/CRM/Contact/BAO/Contact.php
+@@ -3340,30 +3340,21 @@ AND       civicrm_openid.is_primary = 1";
+    * @param int $masterAddressId
+    *   Master id.
+    * @param int $contactId
+-   *   Contact id.
++   *   Contact id. (deprecated - do not use)
+    *
+    * @return string|null
+    *   the found display name or null.
+    */
+   public static function getMasterDisplayName($masterAddressId = NULL, $contactId = NULL) {
+     $masterDisplayName = NULL;
+-    $sql = NULL;
+-    if (!$masterAddressId && !$contactId) {
++    if (!$masterAddressId) {
+       return $masterDisplayName;
+     }
+ 
+-    if ($masterAddressId) {
+-      $sql = "
++    $sql = "
+    SELECT display_name from civicrm_contact
+ LEFT JOIN civicrm_address ON ( civicrm_address.contact_id = civicrm_contact.id )
+     WHERE civicrm_address.id = " . $masterAddressId;
+-    }
+-    elseif ($contactId) {
+-      $sql = "
+-   SELECT display_name from civicrm_contact cc, civicrm_address add1
+-LEFT JOIN civicrm_address add2 ON ( add1.master_id = add2.id )
+-    WHERE cc.id = add2.contact_id AND add1.contact_id = " . $contactId;
+-    }
+ 
+     $masterDisplayName = CRM_Core_DAO::singleValueQuery($sql);
+     return $masterDisplayName;
+diff --git a/CRM/Export/BAO/Export.php b/CRM/Export/BAO/Export.php
+index c1d6843..24be1c6 100644
+--- a/CRM/Export/BAO/Export.php
++++ b/CRM/Export/BAO/Export.php
+@@ -806,7 +806,7 @@ INSERT INTO {$componentTable} SELECT distinct gc.contact_id FROM civicrm_group_c
+                 $masterAddressId = $iterationDAO->$field;
+               }
+               // get display name of contact that address is shared.
+-              $fieldValue = CRM_Contact_BAO_Contact::getMasterDisplayName($masterAddressId, $iterationDAO->contact_id);
++              $fieldValue = CRM_Contact_BAO_Contact::getMasterDisplayName($masterAddressId);
+             }
+           }
+ 
+diff --git a/tests/phpunit/CRM/Export/BAO/ExportTest.php b/tests/phpunit/CRM/Export/BAO/ExportTest.php
+index e5cadf8..bca2f63 100644
+--- a/tests/phpunit/CRM/Export/BAO/ExportTest.php
++++ b/tests/phpunit/CRM/Export/BAO/ExportTest.php
+@@ -27,6 +27,13 @@ class CRM_Export_BAO_ExportTest extends CiviUnitTestCase {
+    */
+   protected $activityIDs = [];
+ 
++  /**
++   * Master Address ID created for testing.
++   *
++   * @var int
++   */
++  protected $masterAddressID;
++
+   public function tearDown() {
+     $this->quickCleanup(['civicrm_contact', 'civicrm_email', 'civicrm_address']);
+     $this->quickCleanUpFinancialEntities();
+@@ -252,6 +259,7 @@ class CRM_Export_BAO_ExportTest extends CiviUnitTestCase {
+       'location_type_id' => "Home",
+       'master_id' => $addressId,
+     ));
++    $this->masterAddressID = $addressId;
+ 
+   }
+ 
+@@ -392,7 +400,7 @@ class CRM_Export_BAO_ExportTest extends CiviUnitTestCase {
+ 
+     //assert the exported result
+     $masterName = CRM_Core_DAO::singleValueQuery("SELECT {$field} FROM {$tableName}");
+-    $displayName = CRM_Contact_BAO_Contact::getMasterDisplayName(NULL, $this->contactIDs[1]);
++    $displayName = CRM_Contact_BAO_Contact::getMasterDisplayName($this->masterAddressID);
+     $this->assertEquals($displayName, $masterName);
+ 
+     // delete the export temp table and component table
