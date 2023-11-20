@@ -21,8 +21,10 @@ use Civi\Api4\Activity;
 use Civi\Api4\Contact;
 use Civi\Api4\CustomGroup;
 use Civi\Api4\CustomField;
+use Civi\Api4\CustomValue;
 use Civi\Api4\Individual;
 use Civi\Api4\Organization;
+use Civi\Api4\StateProvince;
 
 /**
  * @group headless
@@ -130,6 +132,39 @@ class CustomEntityReferenceTest extends CustomTestBase {
     $result = Contact::autocomplete(FALSE)
       ->execute();
     $this->assertGreaterThan(2, $result->countFetched());
+  }
+
+  /**
+   * Ensure custom fields of type EntityReference on multiple records correctly apply filters
+   */
+  public function testEntityReferenceCustomFieldMultiple(): void {
+    $subject = uniqid();
+    CustomGroup::create()->setValues([
+      'title' => 'EntityRefFields',
+      'extends' => 'Individual',
+      'is_multiple' => 1,
+      'style' => 'Tab with table',
+    ])->execute();
+    $field = CustomField::create()->setValues([
+      'label' => 'TestStateProviceReference',
+      'custom_group_id.name' => 'EntityRefFields',
+      'html_type' => 'Autocomplete-Select',
+      'data_type' => 'EntityReference',
+      'fk_entity' => 'StateProvince',
+      'filter' => "country_id.name=France",
+    ])->execute()->single();
+    // Check metadata
+    $spec = CustomValue::getFields('EntityRefFields', FALSE)
+      ->addWhere('name', '=', 'TestStateProviceReference')
+      ->execute()->single();
+    $this->assertNull($spec['suffixes']);
+
+    $result = StateProvince::autocomplete(FALSE)
+      ->setFieldName("Custom_EntityRefFields.TestStateProviceReference")
+      ->execute()
+      ->first();
+    // Is this the first country subdivision of France like it should ?
+    $this->assertEquals('Ain', $result['label']);
   }
 
 }
