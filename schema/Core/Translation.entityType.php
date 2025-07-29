@@ -112,8 +112,8 @@ return [
       'title' => ts('Source Key'),
       'input_type' => 'Text',
       'sql_type' => 'char(22)',
-      'required' => TRUE,
-      'description' => ts('FIXME'),
+      'required' => FALSE,
+      'description' => ts('Alternate FK when using translation_source instead of entity_table / entity_id'),
       'add' => '6.6.alpha1',
       'entity_reference' => [
         'entity' => 'TranslationSource',
